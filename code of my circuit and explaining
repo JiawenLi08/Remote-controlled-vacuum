@@ -1,1 +1,45 @@
 
+/*
+ * The code of the servo
+ * This code is written to control the position of the RC cleaner
+ * Since I don't know how to use the remote controlled yet, I used
+ * button instead.
+ * From my desigh, when you push the left button, the servo will 
+ * trun to the left and when you push the right button, 
+ * the servo will trun to the right.
+ */
+#include <Servo.h> 
+
+ const int buttonPin = 2;   //left button connected to pin 2
+ const int buttonPin1 = 3;  //right button connected to pin 3
+Servo myservo;              //the servo connect to pin 9
+int pos = 90;               //initialize the position of servo
+ 
+void setup() 
+{ 
+  // initialize the servo pin as an input:
+  myservo.attach(9); 
+  // initialize the pushbutton pin as an input: 
+  pinMode(buttonPin, INPUT);
+  // initialize the pushbutton pin as an input:
+  pinMode(buttonPin1, INPUT); 
+} 
+ 
+ 
+void loop() 
+{           
+  if (digitalRead(buttonPin) == HIGH)  //if the left button is pushed
+  {
+    pos = 45;  // the servo turns to left
+  }
+  else if (digitalRead(buttonPin1) == HIGH) //if the right button is pushed
+  {
+    pos = 135;  // the servo turns to right              
+  }
+  else 
+  {
+    pos = 90;   //if no button is pushed, turn the position foward
+  }
+    myservo.write(pos);  //move the servo           
+    delay(30);           //delay 30 unit time to make the program more stable.           
+} 
