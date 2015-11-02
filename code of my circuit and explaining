@@ -1,4 +1,5 @@
 #The code of the servo
+
 /*
  * The code of the servo
  * This code is written to control the position of the RC cleaner
@@ -8,7 +9,7 @@
  * trun to the left and when you push the right button, 
  * the servo will trun to the right.
  */
-#include <Servo.h> 
+#include <Servo.h>    //change the mode of the motor
 
  const int buttonPin = 2;   //left button connected to pin 2
  const int buttonPin1 = 3;  //right button connected to pin 3
@@ -25,8 +26,7 @@ void setup()
   pinMode(buttonPin1, INPUT); 
 } 
  
- 
-void loop() 
+ void loop() 
 {           
   if (digitalRead(buttonPin) == HIGH)  //if the left button is pushed
   {
@@ -43,3 +43,99 @@ void loop()
     myservo.write(pos);  //move the servo           
     delay(30);           //delay 30 unit time to make the program more stable.           
 } 
+/******************************************************************************************************
+
+
+
+
+
+
+*******************************************************************************************************/
+#code of the motor (fan)
+
+/*
+ * The code of the Motor (For the Fan)
+ * this code is just for the fan.
+ * when you push the button, the fan stats.
+ * When you push it again, the fan turns off.
+ */
+const int buttonPin = 12;  //The Pin of button connect to 12
+const int motorPin = 10;   //The Pin of the Mottor connect to 10
+
+int motormode = 1;     //initialize the motor mode, which is off.
+void setup() 
+{
+  //initialize the motor as an output
+  pinMode(motorPin, OUTPUT);  
+  //initialize the button as an input
+  pinMode(buttonPin, INPUT);
+}
+
+void loop()
+{ 
+  if (digitalRead(buttonPin) == HIGH) 
+  //if the button is pushed
+  {  
+    //change the mode of the motor
+    motormode = motormode + 1;
+    //if a incorrect number shows up
+    if (motormode == 3)
+    {
+      //initialize the number again
+      motormode = 1;
+    }
+    delay(300);//delay 30 unit time to make it more stable
+  }
+
+
+  if (motormode == 1) //if the mode of motor is off
+  {
+    digitalWrite(motorPin, LOW);//turn off the motor
+  }
+  else
+  {
+    digitalWrite(motorPin, HIGH);//if else, turn on the motor
+  }
+}
+/******************************************************************************************************
+
+
+
+
+
+
+*******************************************************************************************************/
+#code of the motor   (for the motion) 
+/*
+ * The code of the Motor (For the Fan)
+ * this code is just for the fan.
+ * when you push the button, the fan stats.
+ * When you push it again, the fan turns off.
+ */
+const int buttonPin = 12;  //The Pin of button connect to 12
+const int buttonPin1 = 4;
+const int motorPin = 10;   //The Pin of the Mottor connect to 10
+
+int motormode = 1;     //initialize the motor mode, which is off.
+void setup() 
+{
+  //initialize the motor as an output
+  pinMode(motorPin, OUTPUT);  
+  //initialize the button as an input
+  pinMode(buttonPin, INPUT);
+  pinMode(buttonPin1, INPUT);
+}
+
+void loop()
+{ 
+  if (digitalRead(buttonPin) == HIGH) 
+  //if the button is pushed
+  {  
+    digitalWrite(motorPin, HIGH);//if else, turn on the motor
+  }
+  else if (digitalRead(buttonPin) == HIGH) 
+  {
+    analogWrite(motorPin, -250);
+  }
+  else digitalWrite(motorPin, LOW);
+}
